@@ -26,24 +26,32 @@ render();
 
 function render() {
 
-
     const names = document.querySelector("#names");
     const nameElements = freelancers.map((freelancer) => {
         const element = document.createElement("li");
-        element.append(`${freelancer.name}, ${freelancer.job}, ${freelancer.price}`);
-
+        element.append(`${freelancer.name}`);
         return element;
     });
     names.replaceChildren(...nameElements);
 
-    const freelancerPrices = freelancers.map((freelancers) => freelancers.price);
-    const totalPrice = freelancerPrices.reduce((acc, num) => {
-        acc = acc + num
-            return acc;
-        }, 0)
-        const averagePrice = Math.floor(totalPrice / freelancers.length);
+    const jobs = document.querySelector("#jobs");
+    const jobElements = freelancers.map((freelancer) => {
+        const element = document.createElement("li");
+        element.append(`${freelancer.job}`);
+        return element;
+    });
+    jobs.replaceChildren(...jobElements);
+
+    const prices = document.querySelector("#prices");
+    const priceElements = freelancers.map((freelancer) => {
+        const element = document.createElement("li");
+        element.append(`${freelancer.price}`);
+        return element;
+    });
+    prices.replaceChildren(...priceElements);
+
     const average = document.querySelector("#avg");
-    average.replaceChildren(averagePrice);
+    average.replaceChildren(averagePrice());
 
     // const jobElements = freelancers.map((freelancer) => {
     //     const element=document.createElement("li");
@@ -80,3 +88,13 @@ function addFreelancer() {
 
     render();
 }; 
+
+function averagePrice() {
+    const freelancerPrices = freelancers.map((freelancers) => freelancers.price);
+    const totalPrice = freelancerPrices.reduce((acc, num) => {
+        acc = acc + num
+            return acc;
+        }, 0)
+        const averagePrice = Math.floor(totalPrice / freelancers.length);
+        return averagePrice;
+}
